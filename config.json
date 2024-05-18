@@ -1,11 +1,11 @@
 {
   "common": {
-    "baseRunSpeedInTown": "8"
+    "baseSpeedInTown": "8"
   },
   "player": {
     "baseAtk": 7,
     "baseAtkSpd": 1,
-    "baseRunSpd": 5,
+    "baseSpeed": 5,
     "baseHealthMax": 100,
     "baseHealthRegen": 0
     
@@ -20,28 +20,28 @@
   "enemies":[
     {
       "id": "quick",
-      "moveSpeed": "3 + t * 1.2",
+      "speed": "3 + t * 1.2",
       "hp": "20 * t",
       "exp": "10 * t",
       "size": "1"
     },
     {
       "id": "fat",
-      "moveSpeed": "2 + t * 1.2",
+      "speed": "2 + t * 1.2",
       "hp": "100 * t",
       "exp": "10 * t",
       "size": "2"
     },
     {
       "id": "elite",
-      "moveSpeed": "2 + t * 1.2",
+      "speed": "2 + t * 1.2",
       "hp": "500 * t",
       "exp": "100 * t",
       "size": "3"
     },
     {
       "id": "boss",
-      "moveSpeed": "2 + t * 1.2",
+      "speed": "2 + t * 1.2",
       "hp": "1000 * t",
       "exp": "100 * t",
       "size": "4"
