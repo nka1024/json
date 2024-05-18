@@ -1,5 +1,87 @@
 {
   "common": {
     "baseRunSpeedInTown": "8"
-  }
+  },
+  "player": {
+    "baseAtk": 7,
+    "baseAtkSpd": 1,
+    "baseRunSpd": 5,
+    "baseHealthMax": 100,
+    "baseHealthRegen": 0
+    
+  },
+  "upgrades": [
+    {
+      "id": "upgrAtkSpd",
+      "targetParam": "ATK_SPD",
+      "formula": "ATK_SPD + 0.1 * UPGRADE_LEVEL"
+    }
+  ],
+  "enemies":[
+    {
+      "id": "quick",
+      "moveSpeed": "3 + t * 1.2",
+      "hp": "20 * t",
+      "exp": "10 * t",
+      "size": "1"
+    },
+    {
+      "id": "fat",
+      "moveSpeed": "2 + t * 1.2",
+      "hp": "100 * t",
+      "exp": "10 * t",
+      "size": "2"
+    },
+    {
+      "id": "elite",
+      "moveSpeed": "2 + t * 1.2",
+      "hp": "500 * t",
+      "exp": "100 * t",
+      "size": "3"
+    },
+    {
+      "id": "boss",
+      "moveSpeed": "2 + t * 1.2",
+      "hp": "1000 * t",
+      "exp": "100 * t",
+      "size": "4"
+    }
+  ],
+  "levels": [
+    {
+      "id": "easy",
+      "duration": 60,
+      "waves": {
+        "0.1": {
+          "spawn": {
+            "quantity": "t * 5",
+            "interval": "4",
+            "enemies": [
+              {
+                "id": "quick",
+                "chance": 0.1
+              },
+              {
+                "id": "fat",
+                "chance": 0.2
+              }
+            ]
+          }
+        },
+        "0.4": {
+          "spawn": {
+            "quantity": "t * 5",
+            "interval": "4",
+            "enemies": [
+             
+              {
+                "id": "boss",
+                "quantity": 0.2
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
 }
