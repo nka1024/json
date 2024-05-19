@@ -3,26 +3,175 @@
     "baseSpeedInTown": "8"
   },
   "player": {
-    "baseAtk": 7,
-    "baseAtkSpd": 1,
-    "baseSpeed": 5,
-    "baseHealthMax": 100,
-    "baseHealthRegen": 0
-    
+    "speed": 5,
+    "healthMax": 100,
+    "healthRegen": 0,
+    "expTable":
+    [
+      10, 16, 25, 50, 100, 
+      200, 400, 600, 800, 800, 
+      800, 800, 800, 800, 800, 800, 
+      1000, 1000, 1000, 1000, 1000,
+      1000, 1000, 1000, 1000, 1000,
+      1000, 1000, 1000, 1000, 1000,
+      1000, 1000, 1000, 1000, 1000
+    ]
   },
-  "upgrades": [
+  "weapons": [
     {
-      "id": "upgrAtkSpd",
-      "targetParam": "ATK_SPD",
-      "formula": "ATK_SPD + 0.1 * UPGRADE_LEVEL"
+      "id": "rifle",
+      "atk": 7,
+      "critRate": 0.1,
+      "atkSpeed": 2,
+      "atkRange": 1,
+      "knockback": 0.1,
+      "ricochet": 0,
+      "bulletsPerShot": 1,
+      "bulletsSpread": 1,
+      "penetration": 0
+    },
+    {
+      "id": "shotgun",
+      "atk": 7,
+      "critRate": 0.01,
+      "atkSpeed": 1,
+      "atkRrange": 1,
+      "knockback": 1,
+      "ricochet": 0,
+      "bulletsPerShot": 3,
+      "bulletsSpread": 5,
+      "penetration": 1
     }
   ],
-  "enemies":[
+  "upgrades": {
+    "agility": [
+      {
+        "param": "atkSpeed",
+        "math": "{param} + 0.1"
+      },
+      {
+        "param": "speed",
+        "math": "{param} + 0.1"
+      },
+      {
+        "param": "atkSpeed",
+        "math": "{param} + 0.1"
+      },
+      {
+        "unlockSkill": "blades"
+      }
+    ],
+    "sharpshooter": [
+      {
+        "param": "range",
+        "math": "{param} + 2"
+      },
+      {
+        "param": "critRate",
+        "math": "{param} + 0.1"
+      },
+      {
+        "param": "penetration",
+        "math": "{param} + 1"
+      },
+      {
+        "unlockSkill": "explosion"
+      }
+    ],
+    "bullethell": [
+      {
+        "param": "bulletsPerShot",
+        "math": "{param} + 1"
+      },
+      {
+        "param": "bulletsSpread",
+        "math": "{param} + 0.1"
+      },
+      {
+        "param": "ricochet",
+        "math": "{param} + 1"
+      },
+      {
+        "unlockSkill": "deathBullets"
+      }
+    ],
+    "defensive": [
+      {
+        "param": "healthRegen",
+        "math": "{param} + 0.1"
+      },
+      {
+        "param": "healthMax",
+        "math": "{param} + 50"
+      },
+      {
+        "param": "knockback",
+        "math": "{param} + 1"
+      },
+      {
+        "unlockSkill": "timeFreeze"
+      }
+    ],
+    "electric": [
+      {
+        "unlockSkill": "lightning"
+      },
+      {
+        "param": "lightning.interval",
+        "math": "4"
+      },
+      {
+        "param": "lightning.splash",
+        "math": "{param} +  1"
+      },
+      {
+        "param": "lightning.amount",
+        "math": "{param} +  1"
+      }
+    ]
+  },
+  "skills": [
+    {
+      "id": "lightning",
+      "interval": 5,
+      "atk": 0.4,
+      "amount": 1,
+      "splash": 0,
+      "info": "Strike {amount} random enemy in range with a lightning every {interval} seconds dealing {atk * 100}% damage"
+    },
+    {
+      "id": "explosion",
+      "chance": 0.1,
+      "atk": 0,
+      "splash": 0,
+      "info": " {chance * 100}% chance that enemy will explode upon death dealing {atk * 100}% damage in {splash} radius"
+    },
+    {
+      "id": "blades",
+      "amount": 8,
+      "atk": 0,
+      "knockback": 0,
+      "info": "Summon {amount} rapidly spinning blades dealing {atk * 100}% damage per hit and kocking them back for {knockback} meters"
+    },
+    {
+      "id": "deathBullets",
+      "amount": 10,
+      "atk": 0,
+      "info": "Enemies shoot {amount} bullets in all directions upon death dealing {atk * 100}% damage"
+    },
+    {
+      "id": "timeFreeze",
+      "duration": 2,
+      "cooldown": 30,
+      "info": "Freeze time for {duration} upon taking damage. (Cooldown: {cooldown} seconds)"
+    }
+  ],
+  "enemies": [
     {
       "id": "quick",
       "speed": "3 + t * 1.2",
       "hp": "20 * t",
-      "exp": "10 * t",
+      "exp": "1",
       "size": "1"
     },
     {
@@ -36,24 +185,26 @@
       "id": "elite",
       "speed": "2 + t * 1.2",
       "hp": "500 * t",
-      "exp": "100 * t",
+      "exp": "100",
       "size": "3"
     },
     {
       "id": "boss",
       "speed": "2 + t * 1.2",
       "hp": "1000 * t",
-      "exp": "100 * t",
+      "exp": "1000",
       "size": "4"
     }
   ],
+  
   "levels": [
     {
       "id": "easy",
       "duration": 60,
       "waves": {
-        "0.1": {
+        "0.0": {
           "spawn": {
+            "repeat": "true",
             "quantity": "t * 5",
             "interval": "4",
             "enemies": [
@@ -70,13 +221,12 @@
         },
         "0.4": {
           "spawn": {
-            "quantity": "t * 5",
-            "interval": "4",
+            "repeat": "false",
+            "quantity": "1",
             "enemies": [
-             
               {
                 "id": "boss",
-                "quantity": 0.2
+                "quantity": 1
               }
             ]
           }
