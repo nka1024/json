@@ -90,16 +90,20 @@
   "upgrades": {
     "agility": [
       {
+        "param": "speed",
+        "math": "{param} + 2"
+      },
+      {
         "param": "atkSpeed",
-        "math": "{param} + 0.1"
+        "math": "{param} + 1"
       },
       {
         "param": "speed",
-        "math": "{param} + 0.1"
+        "math": "{param} + 2"
       },
       {
         "param": "atkSpeed",
-        "math": "{param} + 0.1"
+        "math": "{param} + 1"
       },
       {
         "unlockSkill": "blades"
@@ -110,9 +114,14 @@
         "param": "atkRange",
         "math": "{param} + 2"
       },
+      
       {
         "param": "critRate",
         "math": "{param} + 0.1"
+      },
+      {
+        "param": "atkRange",
+        "math": "{param} + 2"
       },
       {
         "param": "penetration",
@@ -124,11 +133,19 @@
     ],
     "bullethell": [
       {
+        "param": "bulletsPerRound",
+        "math": "{param} + 1"
+      },
+      {
         "param": "roundsPerShot",
         "math": "{param} + 1"
       },
       {
         "param": "bulletsSpread",
+        "math": "{param} + 15"
+      },
+      {
+        "param": "bulletsPerRound",
         "math": "{param} + 1"
       },
       {
@@ -137,6 +154,14 @@
       },
       {
         "unlockSkill": "deathBullets"
+      },
+      {
+        "param": "deathBullets.amount",
+        "math": "{param} + 2"
+      },
+      {
+        "param": "deathBullets.atk",
+        "math": "{param} + 0.3"
       }
     ],
     "defensive": [
@@ -199,7 +224,7 @@
     },
     {
       "id": "deathBullets",
-      "amount": 10,
+      "amount": 3,
       "atk": 0.2,
       "info": "Enemies shoot {amount} bullets in all directions upon death dealing ATK x{atk} damage"
     },
