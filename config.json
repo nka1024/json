@@ -6,6 +6,7 @@
     "speed": 5,
     "healthMax": 100,
     "healthRegen": 0,
+    "weapon": "katana",
     "expTable": [
       10,
       16,
@@ -48,27 +49,42 @@
   "weapons": [
     {
       "id": "rifle",
-      "atk": 7,
+      "atk": 3,
       "critRate": 0.1,
-      "atkSpeed": 2,
-      "atkRange": 1,
-      "knockback": 0.1,
-      "ricochet": 0,
-      "bulletsPerShot": 1,
-      "bulletsSpread": 1,
-      "penetration": 0
+      "atkSpeed": 1,
+      "atkRange": 20,
+      "knockback": 0,
+      "ricochet": 1,
+      "roundsPerShot": 1,
+      "bulletsPerRound": 1,
+      "bulletsSpread": 30,
+      "penetration": 2
     },
     {
       "id": "shotgun",
       "atk": 7,
       "critRate": 0.01,
       "atkSpeed": 1,
-      "atkRrange": 1,
+      "atkRange": 10,
       "knockback": 1,
       "ricochet": 0,
-      "bulletsPerShot": 3,
-      "bulletsSpread": 5,
+      "roundsPerShot": 1,
+      "bulletsPerRound": 3,
+      "bulletsSpread": 20,
       "penetration": 1
+    },
+    {
+      "id": "katana",
+      "atk": 7,
+      "critRate": 0.3,
+      "atkSpeed": 1,
+      "atkRange": 4,
+      "knockback": 3,
+      "ricochet": 0,
+      "roundsPerShot": 1,
+      "bulletsPerRound": 1,
+      "bulletsSpread": 0,
+      "penetration": 4
     }
   ],
   "upgrades": {
@@ -91,7 +107,7 @@
     ],
     "sharpshooter": [
       {
-        "param": "range",
+        "param": "atkRange",
         "math": "{param} + 2"
       },
       {
@@ -108,12 +124,12 @@
     ],
     "bullethell": [
       {
-        "param": "bulletsPerShot",
+        "param": "roundsPerShot",
         "math": "{param} + 1"
       },
       {
         "param": "bulletsSpread",
-        "math": "{param} + 0.1"
+        "math": "{param} + 1"
       },
       {
         "param": "ricochet",
@@ -164,28 +180,28 @@
       "interval": 5,
       "atk": 0.4,
       "amount": 1,
-      "splash": 0,
-      "info": "Strike {amount} random enemy in range with a lightning every {interval} seconds dealing {atk * 100}% damage"
+      "splash": 0.5,
+      "info": "Strike {amount} random enemy in range with a lightning every {interval} seconds dealing  ATK x{atk} damage"
     },
     {
       "id": "explosion",
       "chance": 0.1,
-      "atk": 0,
-      "splash": 0,
-      "info": " {chance * 100}% chance that enemy will explode upon death dealing {atk * 100}% damage in {splash} radius"
+      "atk": 1,
+      "splash": 5,
+      "info": " {chance} chance that enemy will explode upon death dealing ATK x{atk} damage in {splash} radius"
     },
     {
       "id": "blades",
-      "amount": 8,
-      "atk": 0,
+      "amount": 3,
+      "atk": 1,
       "knockback": 0,
-      "info": "Summon {amount} rapidly spinning blades dealing {atk * 100}% damage per hit and kocking them back for {knockback} meters"
+      "info": "Summon {amount} rapidly spinning blades dealing ATK x{atk} damage per hit and kocking them back for {knockback} meters"
     },
     {
       "id": "deathBullets",
       "amount": 10,
-      "atk": 0,
-      "info": "Enemies shoot {amount} bullets in all directions upon death dealing {atk * 100}% damage"
+      "atk": 0.2,
+      "info": "Enemies shoot {amount} bullets in all directions upon death dealing ATK x{atk} damage"
     },
     {
       "id": "timeFreeze",
@@ -197,29 +213,29 @@
   "enemies": [
     {
       "id": "quick",
-      "speed": "3 + t * 1.2",
-      "hp": "20 * t",
+      "speed": "6 + {t} * 1.2",
+      "hp": "20 * {t}",
       "exp": "1",
       "size": "1"
     },
     {
       "id": "fat",
-      "speed": "2 + t * 1.2",
-      "hp": "100 * t",
-      "exp": "10 * t",
+      "speed": "2 + {t} * 1.2",
+      "hp": "100 * {t}",
+      "exp": "2 + 10 * {t}",
       "size": "2"
     },
     {
       "id": "elite",
-      "speed": "2 + t * 1.2",
-      "hp": "500 * t",
+      "speed": "2 + {t} * 1.2",
+      "hp": "500 * {t}",
       "exp": "100",
       "size": "3"
     },
     {
       "id": "boss",
-      "speed": "2 + t * 1.2",
-      "hp": "1000 * t",
+      "speed": "2 + {t} * 1.2",
+      "hp": "1000 * {t}",
       "exp": "1000",
       "size": "4"
     }
@@ -227,14 +243,14 @@
   "levels": [
     {
       "id": "easy",
-      "duration": 60,
+      "duration": 360,
       "waves": [
         {
           "when": 0.0,
-          "until": 0.4,
+          "until": 0.95,
           "repeat": "true",
-          "quantity": "1 + t * 5",
-          "interval": "4",
+          "quantity": "1 + {t} * 5",
+          "interval": "1",
           "enemies": [
             {
               "id": "quick",
@@ -247,7 +263,7 @@
           ]
         },
         {
-          "when": 0.5,
+          "when": 0.8,
           "repeat": "false",
           "quantity": "1",
           "enemies": [
